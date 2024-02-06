@@ -1,0 +1,207 @@
+// delete record ===========================
+    if (isset($_POST['type'])){
+        if($_POST['type']=='delete'){
+            $id=$_POST['id'];
+            $query = "delete from input_data where Id ="."'".$id."'";
+    if ($conn->query($query) === TRUE) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> Data deleted  succesfully!</div>';
+    }else{
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
+    }
+    } } 
+  
+// edit record ==============================
+if (isset($_POST['type'])){
+    if($_POST['type']=='edit'){
+        $id=$_POST['id'];
+        // $sql1 = "UPDATE `input_data` SET `First_Name`='$fname', `Last_NAME`='$lname', `Email`='$email', `Mobile_NUMBER`=$mobile_no, `Address`='$address', `Language`='$language', `Comments`='$comments', `Gender`='$gander', `Country`='$country', `State`='$state', `Pincode`=$pincode, `D.O.B`='$date', `image`='$img' WHERE  `Id`=$id";
+        $sql1="select * from input_data where id=$id";
+if ($conn->query($sql1) === TRUE) {
+    $result = $conn->query($sql1);
+    echo $result;
+    } 
+else {
+    echo "Error: " . $sql1 . "<br>" . $conn->error;
+}
+$conn->close();
+} }  
+
+
+// insert record ==================================================================================
+
+if ($nameErr == "" && $lnameErr == "" && $emailErr == "" && $noErr == "" && $addressErr == "" && $languageErr == "" && $commentsErr == "" && $genderErr == "" && $countryErr == "" && $stateErr == "" && $pincodeErr == "" && $dateErr == ""){
+        if (isset($_POST['submit'])){
+            $hid_inp=$_POST['hid_inp'];
+            $fname=$_POST['fname'];   
+            $lname=$_POST['lname'];   
+            $email=$_POST['email'];   
+            $mobile_no=$_POST['mobile_no'];   
+            $address=$_POST['address'];  
+            $comments=$_POST['comments'];   
+            $country=$_POST['country'];         
+            $state=$_POST['state'];         
+            $pincode=$_POST['pincode'];
+            $date=$_POST['date'];
+            $img=$_FILES['file'];
+
+            $language = isset($_POST['lang1']) ? implode(',', $_POST['lang1']) : '';
+            if (isset($_POST['gender'])){
+                $gander=$_POST['gender'];     
+            }
+            $fileName = basename($_FILES["file"]["name"]); 
+            $targetFilePath = $targetDir . $fileName; 
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION); 
+            $allowTypes = array('jpg','png','jpeg','gif');  
+                $sql1 = "INSERT INTO input_data (First_Name,Last_NAME,Email,Mobile_NUMBER,Address,LANGUAGE,Comments,Gender,Country,State,Pincode,`D.O.B`,image) VALUE('$fname','$lname','$email', '$mobile_no','$address','$language','$comments','$gander','$country','$state','$pincode','$date','$fileName')";
+                if ($conn->query($sql1) === TRUE) {
+                    echo '<div class="alert alert-warning alert-dismissible fade show" id="alert_tab" role="alert">
+                    Data add successfully!!</div>';
+                } 
+                else {
+                    echo "Error: " . $sql1 . "<br>" . $conn->error;
+                }
+                $conn->close();                   
+        }
+    }
+//country ==========================================================
+
+                                        <?php 
+                                                $sql="SELECT * FROM countries";
+                                                $result=(mysqli_query($conn, $sql));
+                                                while ($countries = mysqli_fetch_array($result,MYSQLI_ASSOC)):; 
+                                                $con=$countries["id"]
+                                            ?>
+                                        <option value="<?php echo $con; ?>">
+                                            <?php echo $countries["name"];?>
+                                        </option>
+                                        <?php endwhile; ?>
+
+
+
+function insertrec() { 
+    var url = $("#form_id").attr('action');
+    var formElem = $("#form_id");
+    var formData = new FormData(formElem[0]);
+    formData.append('type', 'form_id');
+    $.ajax({
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        type: 'POST',
+        dataType: 'JSON',       
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (e) {
+            console.log("this is error", e)
+        }
+    })
+    
+}
+
+
+=========================================================================================================================
+ <?php 
+                            $sql2="SELECT * FROM input_data"; 
+                            $result2=(mysqli_query($conn, $sql2));
+                            while ($states1 = mysqli_fetch_array($result2,MYSQLI_ASSOC)):; ?>
+                    <tr>
+                        <td class="styl"> <?php echo $states1["Id"];?> </td>
+                        <td class="styl"> <?php echo $states1["First_Name"];?> </td>
+                        <td class="styl"> <?php echo $states1["Last_NAME"];?> </td>
+                        <td class="styl"> <?php echo $states1["Email"];?> </td>
+                        <td class="styl"> <?php echo $states1["Mobile_NUMBER"];?> </td>
+                        <td class="styl"> <?php echo $states1["Address"];?> </td>
+                        <td class="styl"> <?php echo $states1["Language"];?> </td>
+                        <td class="styl"> <?php echo $states1["Comments"];?> </td>
+                        <td class="styl"> <?php echo $states1["Gender"];?> </td>
+                        <td class="styl"> <?php echo $states1["Country"];?> </td>
+                        <td class="styl"> <?php echo $states1["State"];?> </td>
+                        <td class="styl"> <?php echo $states1["Pincode"];?> </td>
+                        <td class="styl"> <?php echo $states1["D.O.B"];?> </td>
+                        <td class="styl"> <img src="img/<?php echo $states1["image"]; ?>" alt="" width="70px"></td>
+                        <th class="styl">
+                            <button type="submit" class="edit_msg" style="border:none;background-color:transparent;"
+                                onclick="editrec(<?php echo $states1['Id'];  ?>)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                                </svg>
+                            </button>
+                        </th>
+                        <th class="styl">
+                            <button type="submit" class="delete_msg" style="border:none;background-color:transparent;"
+                                onclick="deleterec(<?php echo $states1['Id'];  ?>)">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="color:red;" width="16" height="16"
+                                    fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                    <path
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                </svg>
+                            </button>
+                        </th>
+                    </tr>
+                    <?php endwhile;?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    $output .= "<tr>
+    <td>" . $sid_s . "</td>
+    <td>" . $name_s . "</td>
+    <td>" . $lname_s . "</td>
+    <td>" . $email_s . "</td>
+    <td>" . $no_s . "</td>
+    <td>" . $address_s . "</td>
+    <td>" . $language_s . "</td>
+    <td>" . $comments_s . "</td>
+    <td>" . $gander_s . "</td>
+    <td>" . $country_s . "</td>
+    <td>" . $state_s . "</td>
+    <td>" . $pincode_s . "</td>
+    <td>" . $date_s . "</td>
+    <td><img src='img/" . $image_s . "' alt='' width='70px'></td>
+    <th class='styl'>
+        <button type='submit' class='edit_msg' style='border:none;background-color:transparent;'
+            onclick='editrec(" . $states1['Id'] . ");'>
+            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                class='bi bi-pen' viewBox='0 0 16 16'>
+                <path
+                    d='m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z' />
+            </svg>
+        </button>
+    </th>
+    <th class='styl'>
+        <button type='submit' class='delete_msg' style='border:none;background-color:transparent;'
+            onclick='deleterec(" . $states1['Id'] . ");'>
+            <svg xmlns='http://www.w3.org/2000/svg' style='color:red;' width='16' height='16'
+                fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
+                <path
+                    d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z' />
+                <path
+                    d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z' />
+            </svg>
+        </button>
+    </th>
+</tr>";
+

@@ -1,0 +1,43 @@
+#emailErr{
+    color: red;
+}
+.text_right{
+    text-align: right;
+}
+
+/* max-width: 20px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: wrap; */
+.search{
+    width: 95%;
+}
+.add_style{
+    width: 95%;
+}
+.search_btn_style, .add_style_btn{
+    width: 45%;
+}
+.swal2-popup .swal2-styled:focus {
+    box-shadow: none !important;
+}
+
+.td-wrap {
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.td-no{
+    max-width: 80px;
+    
+
+}
+.price_c_width{
+    max-width: 30px;
+}
+.a:hover{
+    margin: 0px !important;
+    padding: 14px !important;
+    box-shadow: 1px 1px 10px grey!important;
+}

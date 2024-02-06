@@ -1,0 +1,46 @@
+.table_h{
+    color:black;
+    padding: 12px 6px !important;
+    font-size: 14px;
+}
+.table_h_a{
+    color: black;
+    padding: 12px 20px !important;
+    font-size: 14px;
+    text-align: center;
+}
+.show_u_data{
+    padding: 12px 9px;
+    font-size: 14px;
+}
+.show_u_data1{
+    padding: 12px 0.5vw;
+    font-size: 13px;
+}
+.err{
+    color:red;
+    font-size: 13px;
+}
+
+.delete_parent{
+    border-top: 5px solid #ff7600;
+    width: 20vw;
+    height: 12vh;
+    box-shadow: 1px 1px 3px gray;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+.delete_child{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.edit_btn_style{
+    cursor: pointer;
+    color: black;
+}

@@ -1,0 +1,21 @@
+.table_style {
+    width: 100%;
+}
+
+.styl {
+    font-size: 13px;
+    width: auto;
+    text-align: center;
+    height:35px;
+}
+td{
+    font-size: 15px;
+}
+span {
+    color: red;
+    font-size: 12px;
+}
+
+#other_lan {
+    display: none;
+}
